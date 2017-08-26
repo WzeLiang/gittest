@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="src/bootstrap.min.css">
     <style>
         body {
-            background: url("./img/open-app.png") no-repeat;
+            background: url("./img/open-app.jpg") no-repeat;
             background-size: 100% 100%;
         }
         p{
+            margin: 0;
+        }
+        .row{
             margin: 0;
         }
         #planetmap {
@@ -19,26 +22,39 @@
         }
 
         #read{
-            border: solid 1px red;
+            /*border: solid 1px red;*/
             position: absolute;
             z-index: 1000;
             height: 1rem;
             width: 3.4rem;
-            margin-top: 7.75rem;
+            margin-top: 6.75rem;
             margin-left: 1.55rem;
         }
-        #tip{
-            display: none;
+        .mode{
+             display: none;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+        }
+        .mode #tip{
+
             padding: .1rem .2rem;
             position: absolute;
             z-index: 1000;
-            height: 1rem;
-            width:6rem;
+            height: 10%;
+            width:6.4rem;
             background: white;
-            margin-left: .2rem;
         }
-        #tip>.p1{
-           /* font-size: .3rem;*/
+        .mode #tip>.p1{
+            font-size: .25rem;
+            margin-bottom: .15rem;
+        }
+        .mode #tip>.p1 img{
+            width: .3rem;
+        }
+        .mode .black{
+            background: rgba(0,0,0,.3);
+            height:90%;
         }
     </style>
     <script>
@@ -69,9 +85,12 @@
 
 
 <div  id="planetmap">
-    <div id="tip" alt="Sun" />
-        <p class="p1">在微信中无法打开？</p>
-        <p class="p2">点击右上角，选择在safari中打开</p>
+    <div class="mode">
+        <div id="tip" alt="Sun" />
+            <p class="p1 row">在微信中无法打开？<img class="pull-right" src="img/Up_Right_Arrow_128px_1190997_easyicon.net.png" alt=""></p>
+            <p class="p2">点击右上角，选择在safari中打开</p>
+        </div>
+        <div class="black"></div>
     </div>
     <div id="read" alt="Sun" onclick="oppeapp()"/></div>
 </div>
@@ -80,12 +99,17 @@
     function oppeapp() {
         var ua = window.navigator.userAgent.toLowerCase();
         if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-           $("#tip").css("display","block")
+            $(".mode").css("display","block")
         } else {
-            alert("不是微信浏览器");
+            window.location.href="www.baidu.com"
+
         }
     }
-
+$(function () {
+    $(".black").click(function () {
+        $(".mode").css("display","none")
+    })
+})
 </script>
 </body>
 </html>
